@@ -677,6 +677,33 @@ namespace SourceGit.ViewModels
                 }
             }
 
+            if (urls.Count > 0)
+            {
+                foreach (var url in urls)
+                {
+                    var name = url.Key;
+                    var addr = url.Value;
+
+                    var item = new MenuItem();
+
+                    if (addr.Contains("gitlab", StringComparison.OrdinalIgnoreCase))
+                    {
+                        item.Icon = App.CreateMenuIcon("Icons.Gitlab");
+                        item.Header = "View CI/CD in Gitlab";
+                        addr = addr.Replace(".git", "/pipelines");
+
+                        item.Click += (_, e) =>
+                        {
+                            Native.OS.OpenBrowser(addr);
+                            e.Handled = true;
+                        };
+
+                        menu.Items.Add(item);
+                    }
+
+                }
+            }
+
             return menu;
         }
 
