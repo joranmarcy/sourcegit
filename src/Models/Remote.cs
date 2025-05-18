@@ -76,6 +76,22 @@ namespace SourceGit.Models
                 return true;
             }
 
+            //NUMIX CODE START ---
+            if (URL.StartsWith("ssh://", StringComparison.OrdinalIgnoreCase))
+            {
+                url = URL;
+                url = url.Replace("ssh://git@", "https://");
+
+                //gitlab numix
+                url = url.Replace(":30001", "/");
+
+                //gitea numix
+                url = url.Replace(":2222", "/");
+                url = url.Replace("ssh.gitea.numix.fr", "gitea.numix.fr");
+                return true;
+            }
+            //NUMIX CODE END ---
+
             return false;
         }
     }

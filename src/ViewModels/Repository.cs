@@ -654,6 +654,19 @@ namespace SourceGit.ViewModels
                     var item = new MenuItem();
                     item.Header = App.Text("Repository.Visit", name);
                     item.Icon = App.CreateMenuIcon("Icons.Remotes");
+
+                    if (addr.Contains("gitlab", StringComparison.OrdinalIgnoreCase))
+                    {
+                        item.Icon = App.CreateMenuIcon("Icons.Gitlab");
+                        item.Header = "View in Gitlab";
+                    }
+
+                    if (addr.Contains("gitea", StringComparison.OrdinalIgnoreCase))
+                    {
+                        item.Icon = App.CreateMenuIcon("Icons.Gitea");
+                        item.Header = "View in Gitea";
+                    }
+
                     item.Click += (_, e) =>
                     {
                         Native.OS.OpenBrowser(addr);
